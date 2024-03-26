@@ -8,15 +8,25 @@ def load_config():
     config.read(CONFIG_PATH)
     return config['slack']['webhook_url']
 
-def send_slack_notification(message):
+def send_slack_notification(message):  # Default color set to green
     webhook_url = load_config()
-    payload = {'text': message}
+    payload = {
+        "attachments": [
+            {
+                "fallback": "Required plain-text summary of the attachment.", 
+                "pretext": "Notification from Course Management System",
+                "author_name": "Course Management System",
+                "color":"#FF0000",
+                "text": message,
+                "footer": "Course Management System",
+            }
+        ]
+    }
     response = requests.post(
         webhook_url,
         data=json.dumps(payload),
         headers={'Content-Type': 'application/json'}
     )
-    
 
 
     

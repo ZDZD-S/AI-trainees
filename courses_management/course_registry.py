@@ -1,5 +1,4 @@
 from utils.errors import COURSE_ALREADY_EXISTS_ERROR, COURSE_NOT_FOUND_ERROR
-
 class CourseRegistry:
     def __init__(self):
         self.courses = []

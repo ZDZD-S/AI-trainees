@@ -1,7 +1,7 @@
 from course_registry import CourseRegistry
 from csv_file_mange import csv_file_mange
 from utils.slack import send_slack_notification
-
+from utils.constants import MENU_CHOICES
 class Application:
     def __init__(self):
         self.course_registry = CourseRegistry()
@@ -50,15 +50,15 @@ class Application:
             print("4. Exit")
             choice = input("Enter your choice (1-4): ")
 
-            if choice == '1':
+            if choice == MENU_CHOICES['Add_Course']:
                 course_name = input("Enter the course name to add: ")
                 self.add_course(course_name)
-            elif choice == '2':
+            elif choice == MENU_CHOICES['Drop_Course']:
                 course_name = input("Enter the course name to drop: ")
                 self.drop_course(course_name)
-            elif choice == '3':
+            elif choice == MENU_CHOICES['List_Courses']:
                 self.list_courses()
-            elif choice == '4':
+            elif choice == MENU_CHOICES['Exit']:
                 print("Exiting program...")
                 break
             else:
