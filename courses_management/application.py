@@ -1,7 +1,8 @@
 from course_registry import CourseRegistry
 from csv_file_mange import csv_file_mange
 from utils.slack import send_slack_notification
-from utils.constants import MENU_CHOICES
+from utils.constants import MenuChoices
+
 class Application:
     def __init__(self):
         self.course_registry = CourseRegistry()
@@ -44,25 +45,27 @@ class Application:
     def run(self):
         while True:
             print("\nMain Menu")
-            print("1. Add Course")
-            print("2. Drop Course")
-            print("3. List Courses")
-            print("4. Exit")
-            choice = input("Enter your choice (1-4): ")
+            for choice in MenuChoices:
+                print(f"{choice.value}. {choice.name.replace('_', ' ')}")
+            choice_input = input("Enter your choice: ")
 
-            if choice == MENU_CHOICES['Add_Course']:
+            if choice_input == str(MenuChoices.ADD_COURSE.value):
                 course_name = input("Enter the course name to add: ")
                 self.add_course(course_name)
-            elif choice == MENU_CHOICES['Drop_Course']:
+
+            elif choice_input == str(MenuChoices.DROP_COURSE.value):
                 course_name = input("Enter the course name to drop: ")
                 self.drop_course(course_name)
-            elif choice == MENU_CHOICES['List_Courses']:
+
+            elif choice_input == str(MenuChoices.LIST_COURSES.value):
                 self.list_courses()
-            elif choice == MENU_CHOICES['Exit']:
+
+            elif choice_input == str(MenuChoices.EXIT.value):
                 print("Exiting program...")
                 break
+            
             else:
-                print("Invalid choice, please choose between 1-4.")
+                print("Invalid choice, please try again.")
 
 if __name__ == "__main__":
     app = Application()

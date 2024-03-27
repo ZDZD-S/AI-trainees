@@ -1,24 +1,23 @@
 import requests
 import json
 import configparser
-from .constants import CONFIG_PATH
+from .constants import CONFIG_PATH, DATE
 
 def load_config():
     config = configparser.ConfigParser()
     config.read(CONFIG_PATH)
     return config['slack']['webhook_url']
 
-def send_slack_notification(message):  # Default color set to green
+def send_slack_notification(message, color="#FF0000"):  
     webhook_url = load_config()
     payload = {
         "attachments": [
             {
-                "fallback": "Required plain-text summary of the attachment.", 
                 "pretext": "Notification from Course Management System",
                 "author_name": "Course Management System",
-                "color":"#FF0000",
+                "color": color,
                 "text": message,
-                "footer": "Course Management System",
+                "footer": f"| {DATE}",
             }
         ]
     }
@@ -27,6 +26,4 @@ def send_slack_notification(message):  # Default color set to green
         data=json.dumps(payload),
         headers={'Content-Type': 'application/json'}
     )
-
-
     
